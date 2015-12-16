@@ -76,7 +76,6 @@ public class Recording {
         int counter = 0;
         for (int i = 0; i < numberOfTimestamps; i++) {
             for (int j = 0; j < 3; j++) {
-                System.out.print(getCoordinate(i, j+((marker-1)*3)) + ", ");
                 if(j == 0) {
                     markerCoordinates[counter] = (getCoordinate(i, j+((marker-1)*3)))/forholdx;
                 }else if(j == 1) {
