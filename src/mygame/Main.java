@@ -24,5 +24,6 @@ public class Main extends SimpleApplication {
        setDisplayStatView(false);
        StartScreenAppState startScreenAppState = new StartScreenAppState();
        stateManager.attach(startScreenAppState);
+       
     }
 }
