@@ -4,6 +4,7 @@
  */
 package AppStates;
 
+import classes.SocketClient;
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
@@ -43,6 +44,11 @@ public class TrainingFieldAppState extends AbstractAppState{
     private final ColorRGBA backgroundColor = ColorRGBA.Gray;
     private StartScreenAppState startScreenAppState;
     
+    private String IP = "127.0.0.1";
+    private int PORT = 1250;
+    
+    private SocketClient client = new SocketClient(PORT, IP);
+    
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
@@ -56,10 +62,13 @@ public class TrainingFieldAppState extends AbstractAppState{
         
         startScreenAppState = stateManager.getState(StartScreenAppState.class);
         buildStadium();
+        
+        client.connect();
     }
     
     @Override
     public void update(float tpf){
+        System.out.println(client.getString());
     
     }
     public void buildStadium() {

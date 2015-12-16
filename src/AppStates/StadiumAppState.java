@@ -4,6 +4,7 @@
  */
 package AppStates;
 
+import classes.SocketClient;
 import classes.Recording;
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
@@ -54,6 +55,14 @@ public class StadiumAppState extends AbstractAppState {
     private Spatial football;
     private int counter = 0;
     
+    private String IP = "127.0.0.1";
+    private int PORT = 1250;
+    
+    private SocketClient client = new SocketClient(PORT, IP);
+    
+    
+    
+    
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
@@ -68,10 +77,13 @@ public class StadiumAppState extends AbstractAppState {
         
         startScreenAppState = stateManager.getState(StartScreenAppState.class);
         buildStadium();
+        
+        client.connect();
     }
     
     @Override
     public void update(float tpf){
+        System.out.println(client.getString());
         if (test[counter] != 0.0f) {
             football.setLocalTranslation(test[counter+0], 0.5f , test[counter+1]); 
             //Vector3f vector = new Vector3f(test[counter+0]-transx/6, 1.5f , test[counter+1]-transy/6 + 2);
