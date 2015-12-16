@@ -36,6 +36,8 @@ public class SocketClient {
                 Scanner readCommandline = new Scanner(System.in);
                 System.out.print("IP/host: ");
                 ip = readCommandline.nextLine();
+                System.out.print("PORT: ");
+                portnr = Integer.parseInt(readCommandline.nextLine());
             }
 
             // connect to server

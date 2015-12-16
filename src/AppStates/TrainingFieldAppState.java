@@ -47,7 +47,7 @@ public class TrainingFieldAppState extends AbstractAppState{
     private String IP = "127.0.0.1";
     private int PORT = 1250;
     
-    private SocketClient client = new SocketClient(PORT, IP);
+    private SocketClient client = new SocketClient();
     
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
