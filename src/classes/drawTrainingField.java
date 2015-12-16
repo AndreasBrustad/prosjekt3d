@@ -107,14 +107,15 @@ public class drawTrainingField extends Node {
         //mid circle
         circle = new Circle2d(assetManager, (node7.getX()-node6.getX())*2, 2.5f, Color.WHITE, 360, Color.red, 0);
         circle.rotate(FastMath.PI/2, 0, 0);
-        circle.setLocalTranslation(node6.getX()-node1.getX() - (node7.getX()-node6.getX()) + transx, node2.getY()-node1.getY() - (node7.getX()-node6.getX()) + transy, 0.6f);
+        circle.setLocalTranslation(node6.getX()-node1.getX() - (node7.getX()-node6.getX()) + transx, node2.getY()-node1.getY() - (node7.getX()-node6.getX()) + transy, 0.8f);
         this.attachChild(circle);
         
         //mid dot
         circle = new Circle2d(assetManager, (10)*2, 2.5f, Color.WHITE, 360, Color.WHITE, 360);
         circle.rotate(FastMath.PI/2, 0, 0);
-        circle.setLocalTranslation(node6.getX()-node1.getX() - 10 + transx, node2.getY()-node1.getY() - 10 + transy, 0.8f);
+        circle.setLocalTranslation(node6.getX()-node1.getX() - 10 + transx, node2.getY()-node1.getY() - 10 + transy, 1.0f);
         this.attachChild(circle);
+    
     }
     
     
