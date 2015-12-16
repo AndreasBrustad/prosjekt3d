@@ -92,7 +92,7 @@ public class StadiumAppState extends AbstractAppState {
         Spatial footballField = assetManager.loadModel("Models/Soccer Arena/Soccer Arena.j3o");
         footballField.setLocalTranslation(counter, counter, counter);
         rootNode.attachChild(footballField);
-        
+        //tosk
         //Legger til fotballen
         football = assetManager.loadModel("Models/Soccer Arena/Football.j3o");
         football.setLocalScale(0.5f, 0.5f, 0.5f);
