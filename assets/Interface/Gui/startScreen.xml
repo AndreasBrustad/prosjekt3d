@@ -24,9 +24,12 @@
                     </control>
                 </panel>
             </panel>
+            <panel id="ip_panel" height="25%" width="50%" align="center" childLayout="vertical">
+                <text text="IP-address : " font="Interface/Fonts/Arial.fnt"/>
+                <control id="ip_address_edit" name="textfield"></control>
+                <text text="Port : " font="Interface/Fonts/Arial.fnt"/>
+                <control id="port_edit" name="textfield"></control>
+            </panel>
         </layer>
-    </screen>
-    <screen id="blank" controller="AppStates.StartScreenAppState">
-        
     </screen>
 </nifty>

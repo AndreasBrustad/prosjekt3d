@@ -17,6 +17,7 @@ import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.controls.TextField;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 
@@ -39,6 +40,7 @@ public class StartScreenAppState extends AbstractAppState implements ScreenContr
     private Nifty nifty;
     private NiftyJmeDisplay niftyDisplay;
     private Node sceneNode;
+    private String ip_address, port;
     
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
@@ -65,14 +67,18 @@ public class StartScreenAppState extends AbstractAppState implements ScreenContr
     }
     
     public void menuShowStadium(){
-        System.out.println("going to stadium");
+        ip_address = nifty.getCurrentScreen().findNiftyControl("ip_address_edit", TextField.class).getDisplayedText();
+        port = nifty.getCurrentScreen().findNiftyControl("port_edit", TextField.class).getDisplayedText();
+        System.out.println("going to stadium\nIp address: " + ip_address + "\nPort: " + port);
         StadiumAppState stadiumAppState = new StadiumAppState();
         nifty.exit();
         stateManager.attach(stadiumAppState);
     }
     
     public void menuShowTrainingField(){
-        System.out.println("going to Training field");
+        ip_address = nifty.getCurrentScreen().findNiftyControl("ip_address_edit", TextField.class).getDisplayedText();
+        port = nifty.getCurrentScreen().findNiftyControl("port_edit", TextField.class).getDisplayedText();
+        System.out.println("going to Training field\nIp address: " + ip_address + "\nPort: " + port);
         TrainingFieldAppState trainingFieldAppState = new TrainingFieldAppState();
         nifty.exit();
         stateManager.attach(trainingFieldAppState);
@@ -83,7 +89,7 @@ public class StartScreenAppState extends AbstractAppState implements ScreenContr
     }
     
     public void bind(Nifty nifty, Screen screen) {
-        System.out.println("bind( " + screen.getScreenId() + ")");
+        System.out.println("bind(" + screen.getScreenId() + ")");
     }
 
     public void onStartScreen() {

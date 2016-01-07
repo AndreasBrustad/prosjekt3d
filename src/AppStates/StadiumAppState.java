@@ -12,18 +12,16 @@ import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioRenderer;
 import com.jme3.audio.Listener;
+import com.jme3.input.ChaseCamera;
 import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.light.DirectionalLight;
-import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import com.jme3.scene.shape.Box;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
 
@@ -35,6 +33,7 @@ public class StadiumAppState extends AbstractAppState {
 
     private SimpleApplication app;
     private FlyByCamera flyCam;
+    private ChaseCamera chaseCam;
     private Camera cam;
     private Node rootNode;
     private Node guiNode;
@@ -122,7 +121,6 @@ public class StadiumAppState extends AbstractAppState {
 
     public void onStartScreen() {
         System.out.println("onStartScreenStadium");
-
     }
 
     public void onEndScreen() {
