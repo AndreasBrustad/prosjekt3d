@@ -50,9 +50,10 @@ public class StadiumAppState extends AbstractAppState {
     private StartScreenAppState startScreenAppState;
     
     private Recording recording2;
-    private float[] test;
+    private float[] test = new float[100];
     private Spatial football;
     private int counter = 0;
+    
     
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
@@ -68,21 +69,36 @@ public class StadiumAppState extends AbstractAppState {
         flyCam.setEnabled(true);
         
         startScreenAppState = stateManager.getState(StartScreenAppState.class);
+        startScreenAppState.socketClient.connect();
+        startScreenAppState.socketClient.getCoordinates(startScreenAppState.socketClient.getString(), test);
         buildStadium();
+        
     }
     
     @Override
     public void update(float tpf){
-        if (test[counter] != 0.0f) {
-            football.setLocalTranslation(test[counter+0], 0.5f , test[counter+1]); 
-            //Vector3f vector = new Vector3f(test[counter+0]-transx/6, 1.5f , test[counter+1]-transy/6 + 2);
-            //cam.setLocation(vector);
+//        System.out.println(client.getString());
+       
+        startScreenAppState.socketClient.getCoordinates(startScreenAppState.socketClient.getString(), test);
+       
+        if (test[0] != 0.0f) {
+//            football.setLocalTranslation(test[counter+0], 0.5f , test[counter+1]);
+           
+//            football.setLocalTranslation(test[0]/(414/60), 0.5f, test[1]/(670/100));
+            football.setLocalTranslation(test[0+3]/(414/60), test[2+3]/(670/100), test[1+3]/(670/100));
+            
+            Vector3f lookat = new Vector3f(test[0+3]/(414/60), test[2+3]/(670/100), test[1+3]/(670/100));
+            Vector3f up = new Vector3f(0f, 1f, 0f);
+            cam.setLocation(new Vector3f(test[0+3]/(414/60)+40f, test[2+3]/(670/100)+25f, test[1+3]/(670/100)));
+            cam.lookAt(lookat, up);
+           
+            System.out.println("X: " + test[0+3] + " " + "Y: " + test[2]+0.5f + " " + "Z: " + test[1+3]);
+//            System.out.println("X: " + test[counter+0] + " " + "Y: " + test[counter+2]+0.5f + " " + "Z: " + test[counter+1]);
+//        }
+//        counter += 3;
+//        if (counter >= recording2.getNumberOfTimestamps()*3) {
+//            counter = 0;
         }
-        counter += 3;
-        if (counter >= recording2.getNumberOfTimestamps()*3) {
-            counter = 0;
-        }
-    
     }
     public void buildStadium() {
         if(rootNode != null) {
@@ -91,7 +107,7 @@ public class StadiumAppState extends AbstractAppState {
         
         //Legger inn fotballbanen
         Spatial footballField = assetManager.loadModel("Models/Soccer Arena/Soccer Arena.j3o");
-        footballField.setLocalTranslation(221/6, 0, 138/6);
+        footballField.setLocalTranslation(test[0]/(414/60)-1, test[5]/(670/100), test[1]/(670/100)+9.25f);
         rootNode.attachChild(footballField);
         
         //Legger til fotballen
@@ -100,8 +116,8 @@ public class StadiumAppState extends AbstractAppState {
         rootNode.attachChild(football);
         
         // Testing Coordinate class.
-        recording2 = new Recording("src\\socket_data\\socket_20151112_134007.dat", 1);
-        test = recording2.getCoordinatesMarker(1);
+//        recording2 = new Recording("src\\socket_data\\socket_20151112_134007.dat", 1);
+//        test = recording2.getCoordinatesMarker(1);
         
         //Setter lys
         DirectionalLight sun = new DirectionalLight();
@@ -109,8 +125,7 @@ public class StadiumAppState extends AbstractAppState {
         rootNode.addLight(sun);
         
         //Setter kamera info
-        Vector3f vector = new Vector3f(30f, 15f, 100f);
-        cam.setLocation(vector);
+        Vector3f vector = new Vector3f(0f, 15f, 0f);
         flyCam.setMoveSpeed(30);
         flyCam.setRotationSpeed(3);
         flyCam.setZoomSpeed(30);

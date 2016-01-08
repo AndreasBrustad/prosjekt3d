@@ -4,6 +4,7 @@
  */
 package AppStates;
 
+import classes.SocketClient;
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
@@ -26,7 +27,7 @@ import de.lessvoid.nifty.screen.ScreenController;
  * @author Andreas
  */
 public class StartScreenAppState extends AbstractAppState implements ScreenController {
-    
+    protected SocketClient socketClient;
     private SimpleApplication app;
     private Camera cam;
     private Node rootNode;
@@ -40,7 +41,7 @@ public class StartScreenAppState extends AbstractAppState implements ScreenContr
     private Nifty nifty;
     private NiftyJmeDisplay niftyDisplay;
     private Node sceneNode;
-    private String ip_address, port;
+    protected String ip_address, port;
     
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
@@ -69,6 +70,7 @@ public class StartScreenAppState extends AbstractAppState implements ScreenContr
     public void menuShowStadium(){
         ip_address = nifty.getCurrentScreen().findNiftyControl("ip_address_edit", TextField.class).getDisplayedText();
         port = nifty.getCurrentScreen().findNiftyControl("port_edit", TextField.class).getDisplayedText();
+        socketClient = new SocketClient(Integer.parseInt(port), ip_address);
         System.out.println("going to stadium\nIp address: " + ip_address + "\nPort: " + port);
         StadiumAppState stadiumAppState = new StadiumAppState();
         nifty.exit();
@@ -78,6 +80,7 @@ public class StartScreenAppState extends AbstractAppState implements ScreenContr
     public void menuShowTrainingField(){
         ip_address = nifty.getCurrentScreen().findNiftyControl("ip_address_edit", TextField.class).getDisplayedText();
         port = nifty.getCurrentScreen().findNiftyControl("port_edit", TextField.class).getDisplayedText();
+        socketClient = new SocketClient(Integer.parseInt(port), ip_address);
         System.out.println("going to Training field\nIp address: " + ip_address + "\nPort: " + port);
         TrainingFieldAppState trainingFieldAppState = new TrainingFieldAppState();
         nifty.exit();

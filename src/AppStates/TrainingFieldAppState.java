@@ -53,7 +53,7 @@ public class TrainingFieldAppState extends AbstractAppState{
     private StartScreenAppState startScreenAppState;
     
     private Recording recording2;
-    private float[] test;
+    private float[] test = new float[100];
     private Spatial football;
     private int counter = 0;
     private Circle2d circle;
@@ -73,29 +73,70 @@ public class TrainingFieldAppState extends AbstractAppState{
         flyCam.setEnabled(true);
         
         startScreenAppState = stateManager.getState(StartScreenAppState.class);
+        System.out.println("f0r connect");
+        startScreenAppState.socketClient.connect();
+        System.out.println("etter connect");
+        startScreenAppState.socketClient.getCoordinates(startScreenAppState.socketClient.getString(), test);
+        System.out.println("første getstring og getcoordinates");
         buildStadium();
+        
+        
     }
-    
+  
+  
+    String japp;
     @Override
     public void update(float tpf){
-        if (test[counter] != 0.0f) {
-            football.setLocalTranslation(test[counter+0], test[counter+1], 5.0f); 
-            //Vector3f vector = new Vector3f(test[counter+0]-transx/6, 1.5f , test[counter+1]-transy/6 + 2);
-            //cam.setLocation(vector);
-        }
-        counter += 3;
-        if (counter >= recording2.getNumberOfTimestamps()*3) {
-            counter = 0;
-        }
+//        System.out.println(client.getString());
+       
+        startScreenAppState.socketClient.getCoordinates(startScreenAppState.socketClient.getString(), test);
+  
         
+        /*
+        japp = startScreenAppState.socketClient.getString();
+        System.out.println("String japp = " + japp);
+        startScreenAppState.socketClient.getCoordinates(japp, test);
+            System.out.print("Mark0r " + 0 + ": ");
+            System.out.print("X :" + test[0] + " ");
+            System.out.print("Y :" + test[1] + " ");
+            System.out.print("Z :" + test[2] + "\n");
+            
+            System.out.print("Mark0r " + 1 + ": ");
+            System.out.print("X :" + test[3] + " ");
+            System.out.print("Y :" + test[4] + " ");
+            System.out.print("Z :" + test[5] + "\n");
+            
+            System.out.print("Mark0r " + 2 + ": ");
+            System.out.print("X :" + test[6] + " ");
+            System.out.print("Y :" + test[7] + " ");
+            System.out.print("Z :" + test[8] + "\n");
+        */
+//        System.out.println(startScreenAppState.socketClient.getString());
+        if (test[0] != 0.0f) {
+//            football.setLocalTranslation(test[counter+0], 0.5f , test[counter+1]);
+//            football.setLocalTranslation(test[0]/(414/60), 0.5f, test[1]/(670/100));
+            football.setLocalTranslation(test[0+3], test[1+3], test[2+3]);
+           
+//            System.out.println("X: " + test[0] + " " + "Y: " + test[2]+0.5f + " " + "Z: " + test[1]);
+//            System.out.println("X: " + test[counter+0] + " " + "Y: " + test[counter+2]+0.5f + " " + "Z: " + test[counter+1]);
+//        }
+//        counter += 3;
+//        if (counter >= recording2.getNumberOfTimestamps()*3) {
+//            counter = 0;
+
+        }
     }
     public void buildStadium() {
         if(rootNode != null) {
             rootNode.detachAllChildren();
         }
         
+        
+        float diffx = (float)0.5*(test[9]-test[0]);
+        float diffy = (float)0.1*(test[7]-test[1]);
         //Legger inn fotballbanen
         footballField = new drawTrainingField(assetManager, "src\\socket_data\\socket_20151112_132337.dat");
+        footballField.setLocalTranslation(test[0]-diffx, test[1]-diffy, test[5]-7f);
         rootNode.attachChild(footballField);
         
         //Legger til fotballen
@@ -104,8 +145,8 @@ public class TrainingFieldAppState extends AbstractAppState{
         rootNode.attachChild(football);
         
         // Testing Coordinate class.
-        recording2 = new Recording("src\\socket_data\\socket_20151112_134007.dat", 0);
-        test = recording2.getCoordinatesMarker(1);
+//        recording2 = new Recording("src\\socket_data\\socket_20151112_134007.dat", 0);
+//        test = recording2.getCoordinatesMarker(1);
         
         //Setter lys
         DirectionalLight sun = new DirectionalLight();
