@@ -52,6 +52,7 @@ public class StadiumAppState extends AbstractAppState {
     private Recording recording2;
     private float[] test = new float[100];
     private Spatial football;
+    private Spatial footballField;
     private int counter = 0;
     
     
@@ -86,7 +87,6 @@ public class StadiumAppState extends AbstractAppState {
            
 //            football.setLocalTranslation(test[0]/(414/60), 0.5f, test[1]/(670/100));
             football.setLocalTranslation(test[0+3]/(414/60), test[2+3]/(670/100), test[1+3]/(670/100));
-            
             Vector3f lookat = new Vector3f(test[0+3]/(414/60), test[2+3]/(670/100), test[1+3]/(670/100));
             Vector3f up = new Vector3f(0f, 1f, 0f);
             cam.setLocation(new Vector3f(test[0+3]/(414/60)+40f, test[2+3]/(670/100)+25f, test[1+3]/(670/100)));
@@ -106,18 +106,19 @@ public class StadiumAppState extends AbstractAppState {
         }
         
         //Legger inn fotballbanen
-        Spatial footballField = assetManager.loadModel("Models/Soccer Arena/Soccer Arena.j3o");
-        footballField.setLocalTranslation(test[0]/(414/60)-1, test[5]/(670/100), test[1]/(670/100)+9.25f);
+        footballField = assetManager.loadModel("Models/Soccer Arena/Soccer Arena.j3o");
+        footballField.setLocalTranslation(test[0]/(414/60), test[5]/(670/100), test[1]/(670/100)+7.75f);
         rootNode.attachChild(footballField);
         
+        Vector3f lookat = new Vector3f(test[0+3]/(414/60), test[2+3]/(670/100), test[1+3]/(670/100));
+            Vector3f up = new Vector3f(0f, 1f, 0f);
+            cam.setLocation(new Vector3f(test[0+3]/(414/60)+40f, test[2+3]/(670/100)+25f, test[1+3]/(670/100)));
+            cam.lookAt(lookat, up);
+            
         //Legger til fotballen
         football = assetManager.loadModel("Models/Soccer Arena/Football.j3o");
         football.setLocalScale(0.5f, 0.5f, 0.5f);
         rootNode.attachChild(football);
-        
-        // Testing Coordinate class.
-//        recording2 = new Recording("src\\socket_data\\socket_20151112_134007.dat", 1);
-//        test = recording2.getCoordinatesMarker(1);
         
         //Setter lys
         DirectionalLight sun = new DirectionalLight();
