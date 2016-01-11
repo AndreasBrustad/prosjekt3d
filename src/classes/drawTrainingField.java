@@ -12,10 +12,10 @@ import com.jme3.scene.Node;
 import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
 import java.awt.Color;
-import java.io.File;
+
+
 
 public class drawTrainingField extends Node {
-    private File file;
     private String filename;
     private AssetManager assetManager;
     protected float coordsX, coordsY, coordsZ;
@@ -30,11 +30,12 @@ public class drawTrainingField extends Node {
         createCorner();
     }
     
+    //Metoden henter ut koordinatene til en node fra et opptak. 
     public void getCornerCoords(int corner){
         coordsX = 0;
         coordsY = 0;
         coordsZ = 0;
-        recording = new Recording(filename, 0);//socket_2013011113_5843.dat
+        recording = new Recording(filename, 0);
         for(int i = 0; i < recording.getNumberOfTimestamps(); i++){
             coordsX += recording.getCoordinate(i, corner);
             coordsY += recording.getCoordinate(i, corner+1);
@@ -46,7 +47,11 @@ public class drawTrainingField extends Node {
         System.out.println(coordsX + "  " + coordsY + "   " + coordsZ);
     }
     
-    public void createCorner(){
+    //Metoden oppretter selve fotballbanen utifra gitte koordinater.
+    public void createCorner(){      
+        
+        //Nodene plassert på banen
+        //Henter ut koordinatene på hver node og lagrer det som en vektor.
         getCornerCoords(0);//venstre ned
         Vector3f node1 = new Vector3f(coordsX, coordsY, 0);
         
@@ -71,9 +76,12 @@ public class drawTrainingField extends Node {
         getCornerCoords(21);
         Vector3f node8 = new Vector3f(coordsX, coordsY, 0);
         
+        //Hvor langt fra x- og y-aksen fotballbanen står
         transx = node1.getX();
         transy = node2.getY()-(node2.getY()-node1.getY())*2;
         
+        //Tegner opp de forskjellige aspektene med fotballbanen ved hjelp av gitte korrdinater
+        //Den er laget ved å tegne rektangler og legge de oppå hverandre. 
         //main field
         CreateQuad((node6.getX()-node1.getX())*2, (node2.getY()-node1.getY())*2, "white", 0, 0, 0);
         CreateQuad((node6.getX()-node1.getX())*2 - 10, (node2.getY()-node1.getY())*2 - 10, "green", 5, 5, 0.1f);
@@ -97,20 +105,22 @@ public class drawTrainingField extends Node {
         //mid line
         CreateQuad((node6.getX()-node1.getX())*2, 5, "white", 0, node2.getY()-node1.getY() - 2.5f, 0.3f);
         
+        
+        //Oppretter midtsirkelen og midtpunktet.
         //mid circle
         circle = new Circle2d(assetManager, (node7.getX()-node6.getX())*2, 2.5f, Color.WHITE, 360, Color.red, 0);
         circle.rotate(FastMath.PI/2, 0, 0);
-        circle.setLocalTranslation(node6.getX()-node1.getX() - (node7.getX()-node6.getX()) + transx, node2.getY()-node1.getY() - (node7.getX()-node6.getX()) + transy, 0.8f);
+        circle.setLocalTranslation(node6.getX()-node1.getX() - (node7.getX()-node6.getX()) + transx, node2.getY()-node1.getY() - (node7.getX()-node6.getX()) + transy, 0.6f);
         this.attachChild(circle);
         
         //mid dot
         circle = new Circle2d(assetManager, (10)*2, 2.5f, Color.WHITE, 360, Color.WHITE, 360);
         circle.rotate(FastMath.PI/2, 0, 0);
-        circle.setLocalTranslation(node6.getX()-node1.getX() - 10 + transx, node2.getY()-node1.getY() - 10 + transy, 1.0f);
+        circle.setLocalTranslation(node6.getX()-node1.getX() - 10 + transx, node2.getY()-node1.getY() - 10 + transy, 0.8f);
         this.attachChild(circle);
-    
     }
     
+    //Metoden som tegner opp rektanglene
     public void CreateQuad(float tall1, float tall2, String color, float trans1, float trans2, float trans3) {
         Quad quad = new Quad(tall1, tall2);
         Geometry field = new Geometry("Field", quad);
