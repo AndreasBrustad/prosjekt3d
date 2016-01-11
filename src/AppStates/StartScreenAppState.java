@@ -1,5 +1,5 @@
 /*
- * 
+ * Klassen styrer menyen (GUI) og velger om den skal gå til Stadium eller Training Field.
  */
 package AppStates;
 

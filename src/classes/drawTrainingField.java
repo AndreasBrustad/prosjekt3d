@@ -1,5 +1,5 @@
 /*
- * A class for drawing the Training Field.
+ * Tegner opp fotballbane.
  */
 package classes;
 

@@ -1,3 +1,8 @@
+/*
+ * Author: Bobo
+ * Tegner sirkel. 
+ */
+
 package classes;
 
 import com.jme3.asset.AssetManager;

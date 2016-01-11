@@ -1,5 +1,5 @@
 /*
- * 
+ * Klassen for å rendre Blender Stadion og fotballen. Denne kjører helt til socketserver stopper.
  */
 package AppStates;
 
