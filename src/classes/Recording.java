@@ -1,5 +1,5 @@
 /*
- * A class with methods for opening and reading coordinate files.
+ * Leser inn fil med koordinater og tilrettelegger disse.
  * 
  */
 package classes;
@@ -23,6 +23,7 @@ public class Recording {
     private int tall;
     private float forholdx = 1, forholdy = 1;
     
+    // Leser inn koordinater fra en gitt fil med der tall == 0 er Training Field og tall == 1 er Stadium
     public Recording (String filename, int tall) {
         this.filename = filename;
         readFile();
@@ -32,6 +33,7 @@ public class Recording {
         this.tall = tall;
     }
     
+    // Leser inn filen og legger koordinatene inn i en ArrayList
     public void readFile() {
         try {
             file = new File(filename);
@@ -62,13 +64,16 @@ public class Recording {
         }
     }
     
+    // Henter ut koordinater fra en allerede lest fil. 
     public float[] getCoordinatesMarker(int marker) {
+        // tall == 0 er Training Field og tall == 1 er Stadium. Må skaleres hvis Stadium.
         if(tall == 1) {
             forholdx = 414/60;
             forholdy = 670/100;
         }
         
         float[] markerCoordinates = new float[numberOfTimestamps*3];
+        
         if (marker > numberOfMarkers) {
             markerCoordinates[0] = -666.0f;
             return markerCoordinates;
@@ -89,7 +94,8 @@ public class Recording {
         }
         return markerCoordinates;
     }
-    
+
+    // Henter ut koordinatene til en markør på et gitt tidspunkt
     public float getCoordinate(int timestamp, int coordinateIndex) {
         if ((numberOfTimestamps < timestamp) || (numberOfCoordinates < coordinateIndex)) {
             return -666.0f;

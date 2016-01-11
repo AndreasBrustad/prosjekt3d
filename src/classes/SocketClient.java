@@ -1,5 +1,5 @@
 /*
- * A class for making a socketclient and listen to a given IP and PORT.
+ * SocketClient er en klasse for oppkobling 
  */
 package classes;
 
@@ -23,6 +23,7 @@ public class SocketClient {
             this.ip = ip;
     }
 
+    // Kobler til socketserver
     public void connect() {
         try {
             // connect to server
@@ -36,7 +37,7 @@ public class SocketClient {
         }
     }
 
-    // Reads data from server and returns it.
+    // Leser inn data fra socketserver og returnerer dette.
     public String getString() {
         try {
             return readData.readLine();
@@ -46,7 +47,7 @@ public class SocketClient {
         return null;
     }
 
-    // Adds coordinates from dataString to a float[]
+    // Leser inn tekststreng med koordinater og legger dem i en float[].
     public void getCoordinates(String dataString, float[] coordinates) {
         int i = 0;
         if (dataString != null) {
@@ -58,7 +59,7 @@ public class SocketClient {
         }
     }
     
-    // close socket
+    // Lukker socketforbindelsen
     public void close() {
         try {
             dataConnection.close();
