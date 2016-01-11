@@ -1,5 +1,5 @@
 /*
- * Reads a coordinate file and haz aMaZzZiNG meth0dz.
+ * A class with methods for opening and reading coordinate files.
  * 
  */
 package classes;

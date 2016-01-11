@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 package AppStates;
 
@@ -22,10 +21,6 @@ import de.lessvoid.nifty.controls.TextField;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 
-/**
- *
- * @author Andreas
- */
 public class StartScreenAppState extends AbstractAppState implements ScreenController {
     protected SocketClient socketClient;
     private SimpleApplication app;

@@ -1,5 +1,5 @@
 /*
-Creates a TCP socket.
+ * A class for making a socketclient and listen to a given IP and PORT.
  */
 package classes;
 
@@ -14,30 +14,17 @@ public class SocketClient {
     BufferedReader readData;
     private int portnr = 1250;  // default port
     private String ip;
-    private boolean setIP = true;
 
     public SocketClient() {
-    }
-
-    public SocketClient(int portnr, String data[]) {
-        this.portnr = portnr;
     }
 
     public SocketClient(int portnr, String ip) {
             this.portnr = portnr;
             this.ip = ip;
-            setIP = false;
     }
 
     public void connect() {
         try {
-            // Read from commandline
-            if (setIP) {
-                Scanner readCommandline = new Scanner(System.in);
-                System.out.print("IP/host: ");
-                ip = readCommandline.nextLine();
-            }
-
             // connect to server
             Socket connection = new Socket(ip, portnr);
             System.out.println("Connection to server established");
@@ -49,6 +36,7 @@ public class SocketClient {
         }
     }
 
+    // Reads data from server and returns it.
     public String getString() {
         try {
             return readData.readLine();
@@ -69,6 +57,7 @@ public class SocketClient {
             }
         }
     }
+    
     // close socket
     public void close() {
         try {

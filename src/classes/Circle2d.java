@@ -1,8 +1,4 @@
 package classes;
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
@@ -19,10 +15,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
-/**
- *
- * @author bobo
- */
 public class Circle2d extends Node {
     private float radius = 5;
     private int angle = 360;
@@ -90,5 +82,4 @@ public class Circle2d extends Node {
         texture.setImage(awtLoader.load(image, false));
         material.setTexture("ColorMap", texture);
     }
-
 }

@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * A class for drawing the Training Field.
  */
 package classes;
 
@@ -15,10 +14,6 @@ import com.jme3.texture.Texture;
 import java.awt.Color;
 import java.io.File;
 
-/**
- *
- * @author Lars Erik
- */
 public class drawTrainingField extends Node {
     private File file;
     private String filename;
@@ -34,8 +29,6 @@ public class drawTrainingField extends Node {
         this.filename = filename;
         createCorner();
     }
-    
-    
     
     public void getCornerCoords(int corner){
         coordsX = 0;
@@ -117,7 +110,6 @@ public class drawTrainingField extends Node {
         this.attachChild(circle);
     
     }
-    
     
     public void CreateQuad(float tall1, float tall2, String color, float trans1, float trans2, float trans3) {
         Quad quad = new Quad(tall1, tall2);
