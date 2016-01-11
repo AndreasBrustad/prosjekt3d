@@ -22,6 +22,7 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 
 public class StartScreenAppState extends AbstractAppState implements ScreenController {
+
     protected SocketClient socketClient;
     private SimpleApplication app;
     private Camera cam;
@@ -31,13 +32,12 @@ public class StartScreenAppState extends AbstractAppState implements ScreenContr
     private ViewPort guiViewPort;
     private AudioRenderer audioRenderer;
     private AppStateManager stateManager;
-    private boolean flagSoundEnabled = true;
     private Listener listener;
     private Nifty nifty;
     private NiftyJmeDisplay niftyDisplay;
     private Node sceneNode;
     protected String ip_address, port;
-    
+
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
@@ -51,18 +51,17 @@ public class StartScreenAppState extends AbstractAppState implements ScreenContr
         this.audioRenderer = this.app.getAudioRenderer();
         this.app.getFlyByCamera().setEnabled(false);
         this.listener = this.app.getListener();
-        
         startNifty();
     }
-    
-    private void startNifty(){
-        niftyDisplay = new NiftyJmeDisplay(assetManager,inputManager,audioRenderer,guiViewPort);
+    //Starter GUI
+    private void startNifty() {
+        niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
         nifty = niftyDisplay.getNifty();
-        nifty.fromXml("Interface/Gui/startScreen.xml","start", this);
+        nifty.fromXml("Interface/Gui/startScreen.xml", "start", this);
         guiViewPort.addProcessor(niftyDisplay);
     }
-    
-    public void menuShowStadium(){
+    //knappmetode for å gå til stadion
+    public void menuShowStadium() {
         ip_address = nifty.getCurrentScreen().findNiftyControl("ip_address_edit", TextField.class).getDisplayedText();
         port = nifty.getCurrentScreen().findNiftyControl("port_edit", TextField.class).getDisplayedText();
         socketClient = new SocketClient(Integer.parseInt(port), ip_address);
@@ -71,8 +70,8 @@ public class StartScreenAppState extends AbstractAppState implements ScreenContr
         nifty.exit();
         stateManager.attach(stadiumAppState);
     }
-    
-    public void menuShowTrainingField(){
+    //knappmetode for å gå til treningsbanen
+    public void menuShowTrainingField() {
         ip_address = nifty.getCurrentScreen().findNiftyControl("ip_address_edit", TextField.class).getDisplayedText();
         port = nifty.getCurrentScreen().findNiftyControl("port_edit", TextField.class).getDisplayedText();
         socketClient = new SocketClient(Integer.parseInt(port), ip_address);
@@ -81,11 +80,11 @@ public class StartScreenAppState extends AbstractAppState implements ScreenContr
         nifty.exit();
         stateManager.attach(trainingFieldAppState);
     }
-    
-    public void menuQuitGame(){
+
+    public void menuQuitGame() {
         app.stop();
     }
-    
+
     public void bind(Nifty nifty, Screen screen) {
         System.out.println("bind(" + screen.getScreenId() + ")");
     }
@@ -96,6 +95,5 @@ public class StartScreenAppState extends AbstractAppState implements ScreenContr
 
     public void onEndScreen() {
         System.out.println("onEndScreen");
-        
     }
 }

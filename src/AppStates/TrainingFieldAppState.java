@@ -16,7 +16,6 @@ import com.jme3.audio.Listener;
 import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.light.DirectionalLight;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
@@ -40,13 +39,9 @@ public class TrainingFieldAppState extends AbstractAppState {
     private ViewPort viewPort;
     private AudioRenderer audioRenderer;
     private Listener listener;
-    private Node localRootNode = new Node("Start Screen RootNode");
-    private Node localGuiNode = new Node("Start Screen GuiNode");
-    private final ColorRGBA backgroundColor = ColorRGBA.Gray;
     private StartScreenAppState startScreenAppState;
     private float[] test = new float[100];
     private Spatial football;
-    private int counter = 0;
     private Circle2d circle;
     private drawTrainingField footballField;
     private float diffx, diffy;
@@ -113,10 +108,12 @@ public class TrainingFieldAppState extends AbstractAppState {
         flyCam.setZoomSpeed(210);
     }
 
-    public void bind(Nifty nifty, Screen screen) {}
+    public void bind(Nifty nifty, Screen screen) {
+    }
 
     public void onStartScreen() {
         System.out.println("onStartScreenStadium");
     }
-    public void onEndScreen() {}
+    public void onEndScreen() {
+    }
 }

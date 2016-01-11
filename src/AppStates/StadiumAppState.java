@@ -41,7 +41,6 @@ public class StadiumAppState extends AbstractAppState {
     private Listener listener;
     private Node localRootNode = new Node("Start Screen RootNode");
     private Node localGuiNode = new Node("Start Screen GuiNode");
-    private final ColorRGBA backgroundColor = ColorRGBA.Gray;
     private StartScreenAppState startScreenAppState;
     
     private float[] coordinateArray = new float[100];
@@ -60,20 +59,16 @@ public class StadiumAppState extends AbstractAppState {
         this.inputManager = this.app.getInputManager();
         this.viewPort = this.app.getViewPort();
         flyCam.setEnabled(true);
-        
+  
         startScreenAppState = stateManager.getState(StartScreenAppState.class);
         startScreenAppState.socketClient.connect();
         startScreenAppState.socketClient.getCoordinates(startScreenAppState.socketClient.getString(), coordinateArray);
         buildStadium();
-        
     }
     
     @Override
     public void update(float tpf){
-//        System.out.println(client.getString());
-       
         startScreenAppState.socketClient.getCoordinates(startScreenAppState.socketClient.getString(), coordinateArray);
-       
         if (coordinateArray[0] != 0.0f) {
             football.setLocalTranslation(coordinateArray[0+3]/(414/60), coordinateArray[2+3]/(670/100), coordinateArray[1+3]/(670/100));
             Vector3f lookat = new Vector3f(coordinateArray[0+3]/(414/60), coordinateArray[2+3]/(670/100), coordinateArray[1+3]/(670/100));
@@ -82,6 +77,7 @@ public class StadiumAppState extends AbstractAppState {
             cam.lookAt(lookat, up);
         }
     }
+    
     public void buildStadium() {
         if(rootNode != null) {
             rootNode.detachAllChildren();
